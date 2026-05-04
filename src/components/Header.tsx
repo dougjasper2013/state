@@ -1,22 +1,25 @@
-export function Header({
-  userName,
-  onSignInClick,
-  onSignOutClick,
-  loading,
-}: {
-  userName: string | undefined;
-  onSignInClick: () => void;
-  onSignOutClick: () => void;
-  loading: boolean;
-}) {
+'use client';
+import { use } from 'react';
+import { UserContext } from '@/state/UserContext';
+
+export function Header() {
+  const {
+    userName,
+    handleSignIn,
+    handleSignOut,
+    loading,
+    togglePermissions,
+  } = use(UserContext);
   return (
     <header>
       {userName ? (
         <>
-          <span>{userName} has signed in</span>
+          <span onClick={togglePermissions}>
+            {userName} has signed in
+          </span>
           <button
             type="button"
-            onClick={onSignOutClick}
+            onClick={handleSignOut}
             disabled={loading}
           >
             {loading ? '...' : 'Sign out'}
@@ -25,7 +28,7 @@ export function Header({
       ) : (
         <button
           type="button"
-          onClick={onSignInClick}
+          onClick={handleSignIn}
           disabled={loading}
         >
           {loading ? '...' : 'Sign in'}
