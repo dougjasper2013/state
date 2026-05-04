@@ -1,11 +1,19 @@
-import { Content } from './Content';
+import type { ReactNode } from 'react';
 
-export function Main() {
+export function Main({
+  userName,
+  children,
+}: {
+  userName: string | undefined;
+  children: ReactNode;
+}) {
   return (
     <main>
       <h1>Welcome</h1>
-      <p>Hello ?! | Please sign in</p>
-      <Content />
+      <p>
+        {userName ? `Hello ${userName}!` : 'Please sign in'}
+      </p>
+      {children}
     </main>
   );
 }
